@@ -25,6 +25,7 @@ abstract contract Presale is Ownable {
 
     bool isPaused;
     uint256 balance;
+    uint256 minBNB;
 
     constructor(
         uint256 _rate, //Qty of coin to swap for 1 wei or 1 bnb during the ICO
@@ -93,8 +94,17 @@ abstract contract Presale is Ownable {
     }
 
     // Buy token
-    function buyToken(uint256 _amount) external payable {
+    /**
+     * @dev recieves bnb and requires some token to be transfered to the msg.sender
+     */
+    function buyToken() external payable {
+        // Make sure presale is currently not paused
         require(isPaused == true, "Presale: Presale is paused");
-        require(_amount > 0, "Presale: Buy quantity is 0");
+        // Must send more that minBNB
+        require(msg.value >= minBNB, "Presale: Buy quantity is low");
+    }
+
+    function getTokenValue(uint256 _bnbQty) internal view returns (uint256) {
+        return SafeMath.mul(_bnbQty, rate);
     }
 }
