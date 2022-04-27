@@ -20,6 +20,7 @@ abstract contract Presale is Ownable {
     IERC20 Token;
     address wallet;
 
+    uint256 bnbDecimal = 8; // Total BNB | ETH Received
     uint256 totalReceived; // Total BNB | ETH Received
     uint256 totalTokenSold; // Total Quantity of Token sold to investors
 

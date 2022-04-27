@@ -1,11 +1,12 @@
 {
   "name": "presale",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "truffle-config.js",
   "repository": "https://github.com/Clinton594/cyberverse.git",
   "author": "Onuigbo Clinton <32768102+Clinton594@users.noreply.github.com>",
   "license": "MIT",
   "dependencies": {
-    "@openzeppelin/contracts": "^4.5.0"
+    "@openzeppelin/contracts": "^4.5.0",
+    "expect": "^28.0.2"
   }
 }
