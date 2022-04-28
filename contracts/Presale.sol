@@ -15,18 +15,18 @@ setEndTime - Modify the endate of the presale period
 setTokenRate - Modity the rate at which the token is sold per Eth | BNB
 */
 
-abstract contract Presale is Ownable {
+contract Presale is Ownable {
     uint256 rate;
     IERC20 Token;
     address wallet;
 
-    uint256 bnbDecimal = 8; // Total BNB | ETH Received
-    uint256 totalReceived; // Total BNB | ETH Received
+    uint256 totalReceived; // Total BNB/ETH Received
     uint256 totalTokenSold; // Total Quantity of Token sold to investors
 
     bool isPaused;
     uint256 balance;
-    uint256 minBNB;
+    uint256 minPurchase = (10**9); //0.5 BNB/ETH
+    uint256 purchaseCap = (100 * 10**18); // 100 ETH/BNB
 
     constructor(
         uint256 _rate, //Qty of coin to swap for 1 wei or 1 bnb during the ICO
@@ -78,7 +78,7 @@ abstract contract Presale is Ownable {
 
     // Deposit some tokens into this presale contract
     receive() external payable {
-        balance = balance + msg.value; //
+        buyToken();
     }
 
     // Withdraw money from the presale contract
@@ -98,14 +98,18 @@ abstract contract Presale is Ownable {
     /**
      * @dev recieves bnb and requires some token to be transfered to the msg.sender
      */
-    function buyToken() external payable {
-        // Make sure presale is currently not paused
+    function buyToken() external view {
+        Make sure presale is currently not paused
         require(isPaused == true, "Presale: Presale is paused");
         // Must send more that minBNB
-        require(msg.value >= minBNB, "Presale: Buy quantity is low");
+        require(msg.value >= minPurchase, "Presale: Buy quantity is low");
     }
 
-    function getTokenValue(uint256 _bnbQty) internal view returns (uint256) {
-        return SafeMath.mul(_bnbQty, rate);
+    function getWeiValue(uint256 _weiQty) external view returns (uint256) {
+        return SafeMath.div(_bnbQty, SafeMath.div(1, 10**18));
+    }
+
+    function getETHValue(uint256 _weiQty) external view returns (uint256) {
+        return SafeMath.mul(_weiQty, SafeMath.div(1, 10**18));
     }
 }
