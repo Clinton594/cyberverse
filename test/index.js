@@ -31,14 +31,9 @@ contract("Testing Two Contracts", (accounts) => {
       expect(presaleStatus).toBe(false);
     });
 
-    it.only("Presale Should give me Correct Ether Value", async () => {
-      const ethValue = await presale.getETHValue("10000000000000000000");
-      expect(ethValue.toString()).toBe("1");
+    it.only("Presale Should give me Correct eth Value", async () => {
+      const ethValue = await presale.getTokensPerEth("61473000");
+      expect(ethValue.toString()).toBe("614");
     });
-
-    // it.skip("Presale Should give me Correct Wei Value", async () => {
-    //   const weiValue = await presale.getWeiValue(1, { from: accounts[0] });
-    //   expect(weiValue.toString()).toBe("100000000");
-    // });
   });
 });

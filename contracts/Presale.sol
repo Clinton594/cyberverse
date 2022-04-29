@@ -12,25 +12,26 @@ Fund - Fund account
 Withdraw - Withdraw from the account
 buy - Buy tokens from the account
 setEndTime - Modify the endate of the presale period
-setTokenRate - Modity the rate at which the token is sold per Eth | BNB
+setTokenRate - Modity the rate at which the token is sold per Eth | Eth
 */
 
 contract Presale is Ownable {
+    using SafeMath for uint256;
     uint256 rate;
     IERC20 Token;
     address wallet;
 
-    uint256 totalReceived; // Total BNB/ETH Received
-    uint256 totalTokenSold; // Total Quantity of Token sold to investors
+    uint256 totalReceived; // Total Eth/ETH Received
 
     bool isPaused;
-    uint256 balance;
-    uint256 minPurchase = (10**9); //0.5 BNB/ETH
-    uint256 purchaseCap = (100 * 10**18); // 100 ETH/BNB
+    uint256 minPurchase = (10**9); //0.5 Eth/ETH
+    uint256 purchaseCap = (100 * 10**18); // 100 ETH/Eth
+
+    mapping(address => uint256) contributors;
 
     constructor(
-        uint256 _rate, //Qty of coin to swap for 1 wei or 1 bnb during the ICO
-        address payable _wallet, //this Contract Address for investors to send Ether or BNB in other to recive ERC token in Exchange
+        uint256 _rate, //Qty of coin to swap for 1 wei or 1 Eth during the ICO
+        address payable _wallet, //this Contract Address for investors to send Ether or Eth in other to recive ERC token in Exchange
         IERC20 _token // Pointer to the ERC20 token that would be sent to investors
     ) notZero(_rate) {
         require(_wallet != address(0), "Presale: wallet is the zero address");
@@ -73,7 +74,7 @@ contract Presale is Ownable {
 
     //Get balance of tokens remaing in this presale Contract
     function getBalance() external view returns (uint256) {
-        return balance;
+        return address(this).balance;
     }
 
     // Deposit some tokens into this presale contract
@@ -87,6 +88,7 @@ contract Presale is Ownable {
         payable
         onlyOwner
     {
+        uint256 balance = address(this).balance;
         if (_wallet == address(0)) _wallet = owner();
         if (_amount <= 0) _amount = balance;
 
@@ -96,20 +98,35 @@ contract Presale is Ownable {
 
     // Buy token
     /**
-     * @dev recieves bnb and requires some token to be transfered to the msg.sender
+     * @dev recieves Eth and requires some token to be transfered to the msg.sender
      */
-    function buyToken() external view {
-        Make sure presale is currently not paused
+    function buyToken() public payable {
+        // Make sure presale is currently not paused
         require(isPaused == true, "Presale: Presale is paused");
-        // Must send more that minBNB
+        // Must send more that minEth
         require(msg.value >= minPurchase, "Presale: Buy quantity is low");
+        // Sender doesn't exceed maxCap
+        require(
+            contributors[msg.sender].add(msg.value) < purchaseCap,
+            "Presale: Attained max cap"
+        );
+        // Get token value
+        uint256 tokenQuantity = getTokensPerEth(msg.value);
+
+        // Recieve the Ethereum into our wallet
+        payable(wallet).transfer(msg.value);
+
+        // Pay the sender in our token
+        require(
+            Token.transfer(msg.sender, tokenQuantity),
+            "Insufficient balance of presale contract!"
+        );
+
+        totalReceived = totalReceived.add(msg.value);
+        contributors[msg.sender] = contributors[msg.sender].add(msg.value);
     }
 
-    function getWeiValue(uint256 _weiQty) external view returns (uint256) {
-        return SafeMath.div(_bnbQty, SafeMath.div(1, 10**18));
-    }
-
-    function getETHValue(uint256 _weiQty) external view returns (uint256) {
-        return SafeMath.mul(_weiQty, SafeMath.div(1, 10**18));
+    function getTokensPerEth(uint256 weiVal) public view returns (uint256) {
+        return weiVal.mul(rate).div(10**(uint256(18).sub(Token.decimals())));
     }
 }
