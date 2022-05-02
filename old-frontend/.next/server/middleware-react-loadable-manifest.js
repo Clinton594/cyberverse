@@ -1,0 +1,1 @@
+self.__REACT_LOADABLE_MANIFEST={"../node_modules/tsparticles-plugin-polygon-mask/esm/index.js -> ./pathseg.js":{"id":"../node_modules/tsparticles-plugin-polygon-mask/esm/index.js -> ./pathseg.js","files":["static/chunks/node_modules_tsparticles-plugin-polygon-mask_esm_pathseg_js.js"]}}

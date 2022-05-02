@@ -1,7 +1,7 @@
 //SPDX-License-Identifier:UNLICENSED
 pragma solidity ^0.8.12;
 
-import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
+import "@openzeppelin/contracts/token/ERC20/extensions/IERC20Metadata.sol";
 import "@openzeppelin/contracts/utils/math/SafeMath.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
 
@@ -18,7 +18,7 @@ setTokenRate - Modity the rate at which the token is sold per Eth | Eth
 contract Presale is Ownable {
     using SafeMath for uint256;
     uint256 rate;
-    IERC20 Token;
+    IERC20Metadata Token;
     address wallet;
 
     uint256 totalReceived; // Total Eth/ETH Received
@@ -32,7 +32,7 @@ contract Presale is Ownable {
     constructor(
         uint256 _rate, //Qty of coin to swap for 1 wei or 1 Eth during the ICO
         address payable _wallet, //this Contract Address for investors to send Ether or Eth in other to recive ERC token in Exchange
-        IERC20 _token // Pointer to the ERC20 token that would be sent to investors
+        IERC20Metadata _token // Pointer to the ERC20 token that would be sent to investors
     ) notZero(_rate) {
         require(_wallet != address(0), "Presale: wallet is the zero address");
         require(
