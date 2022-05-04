@@ -1,17 +1,16 @@
-.container {
-  padding: 0 2rem;
-}
 
 .main {
   min-height: 100vh;
-  padding: 4rem 0;
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+  background-color: #020d3ac4;
+  position: relative;
+  float: left;
+  width: 100%;
 }
-
+.verital_center{
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+}
 .footer {
   display: flex;
   flex: 1;
@@ -19,6 +18,9 @@
   border-top: 1px solid #eaeaea;
   justify-content: center;
   align-items: center;
+  background-color: #020925;
+  border-top-left-radius: 4px;
+  border-top-right-radius: 4px;
 }
 
 .footer a {
@@ -107,7 +109,81 @@
   height: 1em;
   margin-left: 0.5rem;
 }
+section.banner {
+  display: flex;
+  flex-direction: row;
+  min-height: 80vh;
+  align-items: center;
+}
+.distri{
+  background: #fff;
+  padding: 10px 20px;
+  border-radius: 4px;
+}
+.banner h6 {
+  color: #020925;
+  font-size: 18px;
+  margin: 20px 0px;
+  font-weight: 600;
+}
 
+.banner .my_progress {
+  margin: 10px 0;
+  height: 2rem;
+  position: relative;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  overflow: hidden;
+  font-size: .75rem;
+  background-color: #e9ecef;
+  border-radius: 0.25rem;
+}
+
+.progress-bar {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  color: #fff;
+  text-align: center;
+  background-color: #0b0c22;
+  transition: width .6s ease;
+}
+.banner .progress span {
+  font-weight: bold;
+  border-radius: 4px;
+  padding: 0 10px;
+  text-align: left;
+}
+.banner.progress span small {
+  float: right;
+  margin-top: 2px;
+}
+.countdown {
+  background: #fff;
+  padding: 10px 20px;
+  border-radius: 4px;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+}
+.distri .countdown li span {
+  font-size: 18px;
+  font-weight: 600;
+  color: black;
+}
+.distri .countdown li p {
+  color: #333;
+  font-size: 12px;
+    font-weight: 500;
+    text-transform: capitalize;
+    margin: 0px;
+}
 @media (max-width: 600px) {
   .grid {
     width: 100%;
