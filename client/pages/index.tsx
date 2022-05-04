@@ -40,7 +40,9 @@ export default function Home() {
                   </Link>
                 </div>
                 <div className="ms-auto "></div>
-                <div className="d-none d-lg-block">2021-03-12</div>
+                <div className="d-none d-lg-block">
+                  <Button variant="success">2.05 BNB </Button> 
+                </div>
                 <div className="vr"></div>
                 <div>
                   <Button variant="warning">Connect Wallet</Button>
@@ -112,7 +114,7 @@ export default function Home() {
                 </Col>
               </Row>
             </section>
-            <footer className={styles.footer}>Coming Soon</footer>
+            <footer className={styles.footer}><Link href="dashboard"> Admin Dashboard</Link> </footer>
           </div>
         </Container>
       </main>

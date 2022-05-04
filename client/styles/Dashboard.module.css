@@ -1,0 +1,12 @@
+.main{
+  background-color: rgb(242, 213, 247);
+  min-height: 100vh;
+  padding: 3em;
+}
+
+@media (max-width: 600px) {
+  .grid {
+    width: 100%;
+    flex-direction: column;
+  }
+}
