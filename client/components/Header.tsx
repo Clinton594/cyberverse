@@ -8,7 +8,7 @@ export default function Header() {
     <header className="mt-3">
       <Stack direction="horizontal" gap={3}>
         <div>
-          <Link href="/"><a className='text-white'><Image src={projectConfig.logo} alt={projectConfig.name} {...{ height: 50, width: "auto" }} />
+          <Link href="/" ><a className='text-white logo'><Image src={projectConfig.logo} alt={projectConfig.name} {...{ height: 50, width: "auto" }} />
               <strong>{projectConfig.name}</strong></a></Link>
         </div>
         <div className="ms-auto "></div>

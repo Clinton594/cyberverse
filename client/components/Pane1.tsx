@@ -10,7 +10,7 @@ export default function Pane1({style, listCard, transactions}) {
       <Section className='mt-5'>
         <Row>
           <Col md="6">
-            <Card>
+            <Card className='mb-3'>
               <Figure className={[style.h20, style.overflow_hidden].join(" ")}>
                 <Card.Img variant='top' alt='Analytics' src='/analytics-amico.png'/>
               </Figure>

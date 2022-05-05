@@ -25,7 +25,7 @@ export default function Dashboard({cardlist, transactions}) {
               <Pane1 style={style} listCard={chunked} transactions={transactions} />            
             </Tab>
             <Tab eventKey="settings" title="Settings">
-              <Pane2 style={style} listCard={chunked} transactions={transactions} />            
+              <Pane2 style={style}/>            
             </Tab>
           </Tabs>
         </Section>
@@ -47,9 +47,9 @@ export const getStaticProps = ()=>{
         transactions:[
           {address:"0x484ndsofskf99ew09djsp9dj99239", amount:"0.05", quantity:"43,5909", rate:"20,000", date:"27th April, 2022"},
           {address:"0xjduejwe8933jucn3832dzd9339sd9f", amount:"0.54", quantity:"43,5909", rate:"20,000", date:"27th April, 2022"},
-          {address:"0x484ndsofskf99ew09djsp9dj99239", amount:"0.14", quantity:"43,5909", rate:"20,000", date:"27th April, 2022"},
-          {address:"0x484ndsofskf99ew09djsp9dj99239", amount:"2.75", quantity:"43,5909", rate:"20,000", date:"27th April, 2022"},
-          {address:"0x484ndsofskf99ew09djsp9dj99239", amount:"5.15", quantity:"43,5909", rate:"20,000", date:"27th April, 2022"}
+          {address:"0x484ndsofskf99ew09djsp9dj99234", amount:"0.14", quantity:"43,5909", rate:"20,000", date:"27th April, 2022"},
+          {address:"0x484ndsofskf9sfww09djsp9dj99239", amount:"2.75", quantity:"43,5909", rate:"20,000", date:"27th April, 2022"},
+          {address:"0x484ndsdsfekf99ew09djsp9dj99239", amount:"5.15", quantity:"43,5909", rate:"20,000", date:"27th April, 2022"}
         ]
      },
      
