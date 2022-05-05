@@ -7,7 +7,7 @@ import { Button, Form, Stack, Row, Col, Container} from "react-bootstrap";
 import particlesConfig from "../constants/particles.config";
 import projectConfig from "../constants/project.config";
 import Header from "../components/Header";
-import "bootstrap/dist/css/bootstrap.min.css";
+
 import styles from "../styles/Home.module.css";
 
 export default function Home() {

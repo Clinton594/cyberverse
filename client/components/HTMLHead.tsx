@@ -8,6 +8,7 @@ export default function HtmlHead() {
       <title>{projectConfig.name}</title>
       <meta name="description" content={projectConfig.description} />
       <meta name="keywords" content={projectConfig.keywords} />
+      <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"></meta>
       <link rel="icon" href={projectConfig.favicon} />
       <link rel="preconnect" href="https://fonts.googleapis.com" />
       <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="true" />

@@ -1,12 +1,13 @@
 import React from 'react';
-import { Row, Col, Card, Figure, Container } from 'react-bootstrap';
+import { Row, Col, Container, Tabs, Tab } from 'react-bootstrap';
+import Section from "../components/Section"
 import Header from '../components/Header';
-import CardView from '../components/CardView';
-import projectConfig from '../constants/project.config';
-import "bootstrap/dist/css/bootstrap.min.css";
-import style from "../styles/Dashboard.module.css"
 
-export default function dashboard({cardlist}) {
+import style from "../styles/Dashboard.module.css"
+import Pane1 from '../components/Pane1';
+import Pane2 from '../components/Pane2';
+
+export default function Dashboard({cardlist, transactions}) {
   Array.prototype.chunk = function (n){
     if(!this.length) return [];
     return [this.slice(0, n)].concat(this.slice(n).chunk(n));
@@ -18,32 +19,17 @@ export default function dashboard({cardlist}) {
     <main className={style.main}>
       <Container>
         <Header/>
-        <section className='mt-5'>
-          <Row>
-            <Col md="6">
-              <Card>
-                <Figure className={[style.h20, style.overflow_hidden].join(" ")}>
-                  <Card.Img variant='top' alt='Analytics' src='/analytics-amico.png'/>
-                </Figure>
-              </Card>
-            </Col>
-            <Col md="6" className="verital_fill">
-              {
-                chunked.length > 0 && chunked.map((cards, index)=>(
-                  <Row key={index}>
-                  {
-                    cards.map((card)=>(
-                      <Col md="6" key={card.key}>
-                        <CardView style={style} card={card}/>
-                      </Col>
-                    ))
-                  }
-                </Row>
-                ))
-              }
-            </Col>
-          </Row>
-        </section>
+        <Section>
+          <Tabs defaultActiveKey="home" transition={true} className="mb-3">
+            <Tab eventKey="home" title="Home">
+              <Pane1 style={style} listCard={chunked} transactions={transactions} />            
+            </Tab>
+            <Tab eventKey="settings" title="Settings">
+              <Pane2 style={style} listCard={chunked} transactions={transactions} />            
+            </Tab>
+          </Tabs>
+        </Section>
+        
       </Container>
     </main>
   )
@@ -57,7 +43,15 @@ export const getStaticProps = ()=>{
           {name:"Total Contributors", key:"contributors", icon:"far fa-user", value:"1,600", variant:"success"},
           {name:"Uptime", key:"uptime", icon:"fas fa-clock", value:"13 Days", variant:"info"},
           {name:"Presale Status", key:"status", icon:"fas fa-info", value:"Paused", variant:"danger"},
+        ],
+        transactions:[
+          {address:"0x484ndsofskf99ew09djsp9dj99239", amount:"0.05", quantity:"43,5909", rate:"20,000", date:"27th April, 2022"},
+          {address:"0xjduejwe8933jucn3832dzd9339sd9f", amount:"0.54", quantity:"43,5909", rate:"20,000", date:"27th April, 2022"},
+          {address:"0x484ndsofskf99ew09djsp9dj99239", amount:"0.14", quantity:"43,5909", rate:"20,000", date:"27th April, 2022"},
+          {address:"0x484ndsofskf99ew09djsp9dj99239", amount:"2.75", quantity:"43,5909", rate:"20,000", date:"27th April, 2022"},
+          {address:"0x484ndsofskf99ew09djsp9dj99239", amount:"5.15", quantity:"43,5909", rate:"20,000", date:"27th April, 2022"}
         ]
-     }
+     },
+     
    }; 
 }
