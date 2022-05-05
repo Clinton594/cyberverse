@@ -7,7 +7,16 @@ body {
   font-family: 'Montserrat', sans-serif;
   color: white;
 }
-
+.verital_center {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+}
+.verital_fill {
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+}
 a {
   color: inherit;
   text-decoration: none;

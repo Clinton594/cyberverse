@@ -1,7 +1,8 @@
 .main{
-  background-color: rgb(15 24 106);
+  background-color: #0b135ed4;
   min-height: 100vh;
-  padding: 1em 3em;
+  float: left;
+  width: 100%;
 }
 
 @media (max-width: 600px) {
@@ -9,4 +10,29 @@
     width: 100%;
     flex-direction: column;
   }
+}
+
+.h25{
+  height: 25em;
+}
+.h20{
+  height: 20em;
+}
+
+.overflow_hidden{
+  overflow: hidden;
+}
+.card{
+  color: white;
+}
+.main .card i{
+  font-size: xxx-large;
+}
+.zoomable {
+  transition: 0.4s all;
+  cursor: pointer;
+}
+
+.zoomable:hover{
+  transform: scale(1.02);
 }

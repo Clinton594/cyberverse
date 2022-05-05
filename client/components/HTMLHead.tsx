@@ -15,6 +15,7 @@ export default function HtmlHead() {
         href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;400;500;700&display=swap"
         rel="stylesheet"
       ></link>
+      <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css" rel="stylesheet"></link>
     </Head>
   )
 }

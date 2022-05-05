@@ -13,7 +13,6 @@
     "deploy": "gh-pages -d out"
   },
   "dependencies": {
-    "@chakra-ui/react": "^1.8.8",
     "@emotion/react": "^11",
     "@emotion/styled": "^11",
     "bootstrap": "^5.1.3",

@@ -14,11 +14,7 @@
   bottom: 0;
   background-color: #020d3ac4;
 }
-.verital_center{
-  display: flex;
-  justify-content: center;
-  flex-direction: column;
-}
+
 .footer {
   display: flex;
   flex: 1;
@@ -198,3 +194,4 @@ section.banner {
     flex-direction: column;
   }
 }
+

@@ -24,7 +24,7 @@ export default function Home() {
             <section className={styles.banner}>
               <Row>
                 <Col sm="12" lg="6">
-                  <div className={ `${styles.verital_center} w-100`}>
+                  <div className={ `verital_center w-100`}>
                     <h1 className="text-white">
                       The world's most reliable top quality DEx - Presale                  
                   </h1>
