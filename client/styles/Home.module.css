@@ -4,7 +4,6 @@
   position: relative;
   float: left;
   width: 100%;
-  background-image: url('/vector.jpg');
 }
 .main::before{
   position: absolute;

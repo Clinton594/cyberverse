@@ -19,6 +19,7 @@
     "react-bootstrap": "^2.2.3",
     "react-dom": "18.0.0",
     "react-tsparticles": "^2.0.6",
+    "react-typed": "^1.2.0",
     "tsparticles": "^2.0.6"
   },
   "devDependencies": {

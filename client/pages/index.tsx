@@ -1,12 +1,14 @@
 import Head from "next/head";
 import Link from "next/link";
 import Particles from "react-tsparticles";
+import Typed from "react-typed";
 import { loadFull } from "tsparticles";
-import styles from "../styles/Home.module.css";
-import "bootstrap/dist/css/bootstrap.min.css";
-import { Button, Form, Stack, Row, Col, Container, Image } from "react-bootstrap";
+import { Button, Form, Stack, Row, Col, Container} from "react-bootstrap";
 import particlesConfig from "../constants/particles.config";
 import projectConfig from "../constants/project.config";
+import Header from "../components/Header";
+import "bootstrap/dist/css/bootstrap.min.css";
+import styles from "../styles/Home.module.css";
 
 export default function Home() {
   const particlesInit = async (main) => {
@@ -14,46 +16,26 @@ export default function Home() {
   };
 
   return (
-    <>
-      <Head>
-        <title>{projectConfig.name}</title>
-        <meta name="description" content={projectConfig.description} />
-        <meta name="keywords" content={projectConfig.keywords} />
-        <link rel="icon" href={projectConfig.favicon} />
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="true" />
-        <link
-          href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;400;500;700&display=swap"
-          rel="stylesheet"
-        ></link>
-      </Head>
-
-      <main className={styles.main}>
+    <main className={styles.main}>
         <Container>
           <Particles id="tsparticles" init={particlesInit} options={particlesConfig} />
           <div className="position-relative">
-            <header className="mt-3">
-              <Stack direction="horizontal" gap={3}>
-                <div>
-                  <Link href="/">
-                    <Image src={projectConfig.logo} alt={projectConfig.name} {...{ height: 50, width: 100 }} />
-                  </Link>
-                </div>
-                <div className="ms-auto "></div>
-                <div className="d-none d-lg-block">
-                  <Button variant="success">2.05 BNB </Button> 
-                </div>
-                <div className="vr"></div>
-                <div>
-                  <Button variant="warning">Connect Wallet</Button>
-                </div>
-              </Stack>
-            </header>
+             <Header/>
             <section className={styles.banner}>
               <Row>
-                <Col sm="12" lg="6" className={styles.verital_center}>
-                  <h1>Build a new kind of Decentralized Application</h1>
-                  <p className="text-muted">Contribute To Get {projectConfig.token} tokens</p>
+                <Col sm="12" lg="6">
+                  <div className={ `${styles.verital_center} w-100`}>
+                    <h1 className="text-white">
+                      The world's most reliable top quality DEx - Presale                  
+                  </h1>
+                  <p >
+                    <Typed
+                    className="text-muted"
+                    strings={[`Contribute To Get ${projectConfig.token} tokens`]}
+                    typeSpeed={40}
+                    loop />
+                    </p>
+                  </div>
                 </Col>
                 <Col sm="12" lg="6">
                   <div className={styles.distri}>
@@ -118,6 +100,5 @@ export default function Home() {
           </div>
         </Container>
       </main>
-    </>
   );
 }
