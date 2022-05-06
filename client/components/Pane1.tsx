@@ -10,13 +10,13 @@ export default function Pane1({style, listCard, transactions}) {
       <Section className='mt-5'>
         <Row>
           <Col md="6">
-            <Card className='mb-3'>
+            <Card>
               <Figure className={[style.h20, style.overflow_hidden].join(" ")}>
                 <Card.Img variant='top' alt='Analytics' src='/analytics-amico.png'/>
               </Figure>
             </Card>
           </Col>
-          <Col md="6" className="verital_fill">
+          <Col md="6" className="verital_center">
             {
               listCard.length > 0 && listCard.map((cards, index)=>(
                 <Row key={index}>
