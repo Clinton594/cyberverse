@@ -4,17 +4,20 @@ import Particles from "react-tsparticles";
 import Typed from "react-typed";
 import { loadFull } from "tsparticles";
 import { Button, Form, Stack, Row, Col, Container} from "react-bootstrap";
-import particlesConfig from "../constants/particles.config";
+import particlesConfig from "../constants/particles.config.json";
 import projectConfig from "../constants/project.config";
 import Header from "../components/Header";
 
+import {balance} from "../libraries/index";
+
 import styles from "../styles/Home.module.css";
 
-export default function Home() {
+export default function Home({balance}) {
   const particlesInit = async (main) => {
     await loadFull(main);
   };
 
+  
   return (
     <main className={styles.main}>
         <Container>
@@ -51,10 +54,6 @@ export default function Home() {
                     <div className={styles.my_progress}>
                       <div
                         className="progress-bar px-3"
-                        role="progressbar"
-                        aria-valuenow="50"
-                        aria-valuemin="0"
-                        aria-valuemax="100"
                       >
                         <span>
                           9,000,000 <small>50%</small>
@@ -96,9 +95,18 @@ export default function Home() {
                 </Col>
               </Row>
             </section>
-            <footer className={styles.footer}><Link href="dashboard"> Admin Dashboard</Link> </footer>
+            <footer className={styles.footer}><Link href="/dashboard"> Admin Dashboard</Link> </footer>
           </div>
         </Container>
       </main>
   );
+}
+
+export const getStaticProps = async () =>{
+
+  return ({
+    props:{
+      balance:""
+    }
+  })
 }

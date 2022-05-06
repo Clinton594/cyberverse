@@ -18,10 +18,10 @@ export default function Pane1({style, listCard, transactions}) {
           </Col>
           <Col md="6" className="verital_center">
             {
-              listCard.length > 0 && listCard.map((cards, index)=>(
+              listCard.length > 0 && listCard.map((cards, index:number)=>(
                 <Row key={index}>
                 {
-                  cards.map((card)=>(
+                  cards.map((card: object)=>(
                     <Col md="6" key={card.key}>
                       <CardView style={style} card={card}/>
                     </Col>
