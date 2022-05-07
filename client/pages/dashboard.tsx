@@ -6,6 +6,7 @@ import Header from '../components/Header';
 import style from "../styles/Dashboard.module.css"
 import Pane1 from '../components/Pane1';
 import Pane2 from '../components/Pane2';
+import Footer from '../components/Footer';
 
 export default function Dashboard({cardlist, transactions}) {
   Array.prototype.chunk = function (n){
@@ -29,7 +30,9 @@ export default function Dashboard({cardlist, transactions}) {
             </Tab>
           </Tabs>
         </Section>
-        
+        <Section>
+          <Footer />
+        </Section>
       </Container>
     </main>
   )

@@ -8,6 +8,7 @@ import projectConfig from "../constants/project.config";
 import Header from "../components/Header";
 
 import styles from "../styles/Home.module.css";
+import Footer from "../components/Footer";
 
 export default function Home({balance}) {
   const particlesInit = async (main) => {
@@ -92,7 +93,7 @@ export default function Home({balance}) {
                 </Col>
               </Row>
             </section>
-            <footer className={styles.footer}><Link href="/dashboard"> Admin Dashboard</Link> </footer>
+            <Footer />
           </div>
         </Container>
       </main>
