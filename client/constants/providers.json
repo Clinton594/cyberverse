@@ -1,0 +1,5 @@
+{
+  "default":"injected",
+  "provider1":"Rinkeby",
+  "provider2":"Robsten"
+}

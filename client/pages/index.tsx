@@ -1,4 +1,3 @@
-import Head from "next/head";
 import Link from "next/link";
 import Particles from "react-tsparticles";
 import Typed from "react-typed";
@@ -7,8 +6,6 @@ import { Button, Form, Stack, Row, Col, Container} from "react-bootstrap";
 import particlesConfig from "../constants/particles.config.json";
 import projectConfig from "../constants/project.config";
 import Header from "../components/Header";
-
-import {balance} from "../libraries/index";
 
 import styles from "../styles/Home.module.css";
 

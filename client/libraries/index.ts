@@ -1,28 +1,21 @@
+import { Web3Provider } from "@ethersproject/providers";
+import { InjectedConnector } from "@web3-react/injected-connector";
 import { ethers } from "ethers";
-import presale from "../contracts/Presale.json"
 
-
-
-var address:string, url:string;
-if(process.env.NODE_ENV === "development"){
-  url = "http://127.0.0.1:9545/"
-  address = "0x1a625BB856AF4aD62D87361B93B5bc5a353E6D8f"
-}else{
-  url = "https://ropsten.infura.io/v3/YOUR-PROJECT-ID"
-  address = "0x1a625BB856AF4aD62D87361B93B5bc5a353E6D8f"
+const getLibrary = (provider:any, connector:any)=>{
+  return new Web3Provider(provider);
 }
 
-
-
-const connectWallet = async ()=>{
-  if(window.ethereum !== undefined){
-    const provider = new ethers.providers.Web3Provider(window.ethereum);
-    console.log("metamask found");
-    
-  }else{
-    throw new Error("Metamask not installed")
-  }
+const connect = async (connector:any)=>{
+  // Read-only
+  let ethersProvider = new ethers.providers.JsonRpcProvider("http://127.0.0.1:9545/");
+  const {provider} = await connector.activate();
+  // Signer
+  const signer = provider.getSigner();
+  ethersProvider = new Web3Provider(signer);
+  // return ethersProvider;
 }
 
+const provider = new InjectedConnector({supportedChainIds:[1337]});
 
-export {connectWallet}
+export { getLibrary, connect, provider }
