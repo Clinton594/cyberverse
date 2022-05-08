@@ -18,4 +18,9 @@ const connect = async (connector:any)=>{
 
 const provider = new InjectedConnector({supportedChainIds:[1337]});
 
-export { getLibrary, connect, provider }
+const toEther = (number:number):number => {
+  const res:any =  ethers.utils.formatEther(number);
+  return Math.round(res * 1e4) / 1e4;
+}
+
+export { getLibrary, connect, provider, toEther }

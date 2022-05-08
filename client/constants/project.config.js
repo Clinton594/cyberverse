@@ -7,6 +7,7 @@ const projectConfig = {
     "Daowabunga utilizes Treasury Reserves to enable long-term price consistency and scarcity within an infinite supply system",
   token: "PrimDexSwap",
   ticker: "PrimeDEX",
+  blockChainTokan: "ETH",
 };
 
 export default projectConfig;

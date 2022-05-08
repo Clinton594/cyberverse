@@ -3,12 +3,13 @@ import { Stack, Image, Button } from 'react-bootstrap';
 import Link from 'next/link';
 import projectConfig from '../constants/project.config';
 import { useWeb3React } from "@web3-react/core";
-import { connect, provider } from '../libraries';
+import { connect, provider, toEther } from '../libraries';
 import { useSelector, useDispatch } from 'react-redux';
-import {setWallet, setConnection} from '../redux/presaleReducer';
+import {setWallet, setConnection, setBalance} from '../redux/presaleReducer';
+import {IStore} from "../redux/store"
 
 export default function Header() {
-  const { presale }:object = useSelector((store)=>store);
+  const { presale } = useSelector((store:IStore)=>store);
   const dispatch = useDispatch();
 
   const {
@@ -17,7 +18,7 @@ export default function Header() {
     active,
     // chainId,
     // connector,
-    // library,
+    library,
     deactivate,
     // provider,
     // error,
@@ -26,10 +27,21 @@ export default function Header() {
 
   useEffect(()=>{
     dispatch(setConnection(active));
-    console.log(active);
     
     dispatch(setWallet(account));
-  }, [active, account])
+    
+  }, [active, account]);
+
+  useEffect(()=>{
+    if(library !== undefined){
+      library.getBalance(account).then((balance :  number)=>{
+        const formattedBalance :number = toEther(balance);        
+        dispatch(setBalance(formattedBalance))
+      })
+    }else{
+      dispatch(setBalance(0));
+    }
+  }, [library])
 
   return (
     <header className="mt-3">
@@ -39,9 +51,13 @@ export default function Header() {
               <strong>{projectConfig.name}</strong></a></Link>
         </div>
         <div className="ms-auto "></div>
-        <div className="d-none d-lg-block">
-          <Button variant="success">2.05 BNB </Button> 
-        </div>
+        {
+          presale.balance > 0 && (
+            <div className="d-none d-lg-block">
+              <Button variant="success"> {presale.balance} {projectConfig.blockChainTokan} </Button> 
+            </div>
+          )
+        }
         <div className="vr bg-white"></div>
         <div>
           {

@@ -9,7 +9,8 @@ import Pane2 from '../components/Pane2';
 import Footer from '../components/Footer';
 
 export default function Dashboard({cardlist, transactions}) {
-  Array.prototype.chunk = function (n){
+
+  Array.prototype.chunk = function (n:number): number[]{
     if(!this.length) return [];
     return [this.slice(0, n)].concat(this.slice(n).chunk(n));
   }
