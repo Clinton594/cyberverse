@@ -11,9 +11,8 @@ contract TestToken is Context, ERC20, Ownable {
     constructor(
         string memory name, //Name of the token
         string memory symbol, //Token symbol
-        uint256 initailSupply,
-        uint8 decimal
-    ) ERC20(name, symbol, decimal) {
+        uint256 initailSupply
+    ) ERC20(name, symbol) {
         thisowner = _msgSender();
         _mint(_msgSender(), initailSupply);
     }

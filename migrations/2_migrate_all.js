@@ -3,7 +3,7 @@ const Presale = artifacts.require("Presale");
 
 module.exports = async (deployer, network, accounts) => {
   if (network === "development") {
-    await deployer.deploy(TestToken, "TestToken", "TTK", 1000000, 8);
+    await deployer.deploy(TestToken, "TestToken", "TTK", 1000000);
     const token = await TestToken.deployed();
 
     // Deploy presale

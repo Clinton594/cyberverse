@@ -6,7 +6,7 @@ contract("Testing Two Contracts", (accounts) => {
   describe("TestToken Block", () => {
     let token, presale;
     beforeEach(async () => {
-      token = await Token.new("TestToken", "TTk", 3000, 8);
+      token = await Token.new("TestToken", "TTk", 3000);
       presale = await Presale.new(100003, accounts[0], token.address);
     });
 
@@ -31,9 +31,9 @@ contract("Testing Two Contracts", (accounts) => {
       expect(presaleStatus).toBe(false);
     });
 
-    it.only("Presale Should give me Correct eth Value", async () => {
-      const ethValue = await presale.getTokensPerEth("61473000");
-      expect(ethValue.toString()).toBe("614");
-    });
+    // it("Presale Should give me Correct eth Value", async () => {
+    //   const ethValue = await presale.getTokensPerEth("61473000");
+    //   expect(ethValue.toString()).toBe("614");
+    // });
   });
 });

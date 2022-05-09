@@ -5,21 +5,26 @@ interface IinitialState {
   loading: boolean;
   balance: number;
   isConnected: boolean;
+  walletIsVisible: boolean;
   chainId: number;
 }
 
 const initialState: IinitialState = {
   loading: false,
+  walletIsVisible: true,
   balance: 0,
   chainId: 0,
   wallet: "",
-  isConnected: false,
+  isConnected: true,
 };
 
 const presaleSlice: Slice = createSlice({
   name: "presale",
   initialState,
   reducers: {
+    setWalletVisibility: (state: IinitialState, { payload }) => {
+      state.walletIsVisible = payload;
+    },
     setWallet: (state: IinitialState, { payload }) => {
       state.wallet = payload;
     },
@@ -36,5 +41,5 @@ const presaleSlice: Slice = createSlice({
 });
 
 export type { IinitialState };
-export const { setWallet, setConnection, setBalance, setChainId } = presaleSlice.actions;
+export const { setWallet, setConnection, setBalance, setChainId, setWalletVisibility } = presaleSlice.actions;
 export default presaleSlice.reducer;
