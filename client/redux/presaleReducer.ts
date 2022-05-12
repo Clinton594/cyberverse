@@ -7,6 +7,7 @@ interface IinitialState {
   isConnected: boolean;
   walletIsVisible: boolean;
   chainId: number;
+  isAdmin: boolean;
 }
 
 const initialState: IinitialState = {
@@ -16,6 +17,7 @@ const initialState: IinitialState = {
   chainId: 0,
   wallet: "",
   isConnected: true,
+  isAdmin: true,
 };
 
 const presaleSlice: Slice = createSlice({
@@ -37,9 +39,13 @@ const presaleSlice: Slice = createSlice({
     setChainId: (state: IinitialState, { payload }) => {
       state.chainId = payload;
     },
+    setIsAdmin: (state: IinitialState, { payload }) => {
+      state.isAdmin = payload;
+    },
   },
 });
 
 export type { IinitialState };
-export const { setWallet, setConnection, setBalance, setChainId, setWalletVisibility } = presaleSlice.actions;
+export const { setWallet, setConnection, setBalance, setChainId, setWalletVisibility, setIsAdmin } =
+  presaleSlice.actions;
 export default presaleSlice.reducer;

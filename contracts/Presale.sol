@@ -51,6 +51,10 @@ contract Presale is Ownable {
         _;
     }
 
+    function getOwner() external view returns (address) {
+        return owner();
+    }
+
     // Set token rate
     function setTokenRate(uint256 _rate) external onlyOwner notZero(_rate) {
         rate = _rate;

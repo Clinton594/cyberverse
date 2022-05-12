@@ -1,0 +1,14 @@
+{
+  "1337":{
+    "name":"Development",
+    "address":"0xFc0A2E0edAd575F8a01f46ACfC9d063E1C3d4CCb"
+  },
+  "1":{
+    "name":"Mainnet",
+    "address":""
+  },
+  "4":{
+    "name":"Rinkeby Testnet",
+    "address":"0xFc0A2E0edAd575F8a01f46ACfC9d063E1C3d4CCb"
+  }
+}

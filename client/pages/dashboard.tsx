@@ -1,50 +1,79 @@
 import React, { useEffect } from "react";
-import { Container, Tabs, Tab } from "react-bootstrap";
-import Section from "../components/Section";
-import Header from "../components/Header";
+import { useDispatch, useSelector } from "react-redux";
+import { useWeb3React } from "@web3-react/core";
+import { Container, Tabs, Tab, Stack } from "react-bootstrap";
 
-import style from "../styles/Dashboard.module.css";
+import { IStore } from "../redux/store";
+import { setIsAdmin } from "../redux/presaleReducer";
+import Header from "../components/Header";
+import Section from "../components/Section";
 import Pane1 from "../components/Pane1";
 import Pane2 from "../components/Pane2";
 import Footer from "../components/Footer";
-import { useWeb3React } from "@web3-react/core";
+import style from "../styles/Dashboard.module.css";
+import { getContractInstance } from "../libraries/connectors";
 
 export default function Dashboard({ cardlist, transactions }) {
+  const dispatch = useDispatch();
+  const { account, chainId, library, active } = useWeb3React();
+  const { presale } = useSelector((store: IStore) => store);
+
+  let contract: any;
+
   Array.prototype.chunk = function (n: number): number[] {
     if (!this.length) return [];
     return [this.slice(0, n)].concat(this.slice(n).chunk(n));
   };
 
   const chunked = cardlist.chunk(2);
-  const { library } = useWeb3React();
 
   useEffect(() => {
-    // const contract = new library();
-  });
+    (async () => {
+      if (active) {
+        contract = await getContractInstance(library, chainId, account);
+        const owner = await contract.getOwner();
+        if (owner !== account) {
+          dispatch(setIsAdmin(false));
+        }
+      } else dispatch(setIsAdmin(false));
+    })();
+  }, [active]);
 
   return (
     <main className={style.main}>
       <Container>
         <Header />
-        <Section>
-          <Tabs defaultActiveKey="home" transition={true} className="mb-3">
-            <Tab eventKey="home" title="Home">
-              <Pane1 style={style} listCard={chunked} transactions={transactions} />
-            </Tab>
-            <Tab eventKey="settings" title="Settings">
-              <Pane2 style={style} />
-            </Tab>
-          </Tabs>
-        </Section>
-        <Section>
-          <Footer />
-        </Section>
+        {presale.isAdmin && (
+          <>
+            <Section>
+              <Tabs defaultActiveKey="home" transition={true} className="mb-3">
+                <Tab eventKey="home" title="Home">
+                  <Pane1 style={style} listCard={chunked} transactions={transactions} />
+                </Tab>
+                <Tab eventKey="settings" title="Settings">
+                  <Pane2 style={style} />
+                </Tab>
+              </Tabs>
+            </Section>
+            <Section>
+              <Footer />
+            </Section>
+          </>
+        )}
+        {!presale.isAdmin && (
+          <Section>
+            <Stack style={{ alignItems: "center" }}>
+              <i className="fas fa-info-circle text-white" style={{ fontSize: "xxx-large" }}></i>
+              <h1 className="text-white"> YOU ARE NOT AN ADMIN</h1>
+            </Stack>
+          </Section>
+        )}
       </Container>
     </main>
   );
 }
 
-export const getStaticProps = () => {
+export const getServerSideProps = () => {
   return {
     props: {
       cardlist: [

@@ -19,11 +19,12 @@ const path = require("path");
  *
  */
 
-// const HDWalletProvider = require('@truffle/hdwallet-provider');
+const HDWalletProvider = require("@truffle/hdwallet-provider");
 //
-// const fs = require('fs');
-// const mnemonic = fs.readFileSync(".secret").toString().trim();
-
+const mnemonic = "82d475a0b6293f15d966045d144c6db388a7d55a7865b47164c2ee5b1f19ec12";
+const fs = require("fs");
+// const mnemonic = fs.readFileSync("./.secret").toString().trim();
+//
 module.exports = {
   /**
    * Networks define how you connect to your ethereum client and let you set the
@@ -61,6 +62,14 @@ module.exports = {
     ropsten: {
       provider: () => new HDWalletProvider(mnemonic, `https://ropsten.infura.io/v3/YOUR-PROJECT-ID`),
       network_id: 3, // Ropsten's id
+      gas: 5500000, // Ropsten has a lower block limit than mainnet
+      confirmations: 2, // # of confs to wait between deployments. (default: 0)
+      timeoutBlocks: 200, // # of blocks before a deployment times out  (minimum/default: 50)
+      skipDryRun: true, // Skip dry run before migrations? (default: false for public nets )
+    },
+    rinkeby: {
+      provider: () => new HDWalletProvider(mnemonic, `https://rinkeby.infura.io/v3/e99a28d1dc1346f7a70b3de794bf2b3d`),
+      network_id: 4, // rinkeby
       gas: 5500000, // Ropsten has a lower block limit than mainnet
       confirmations: 2, // # of confs to wait between deployments. (default: 0)
       timeoutBlocks: 200, // # of blocks before a deployment times out  (minimum/default: 50)

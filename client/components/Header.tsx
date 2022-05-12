@@ -4,8 +4,8 @@ import React, { useEffect, useState } from "react";
 import { Stack, Image, Button } from "react-bootstrap";
 import { useSelector, useDispatch } from "react-redux";
 import projectConfig from "../constants/project.config";
-import { getContract, connectToWallet, injectProvider, toEther } from "../libraries/connectors";
-import { setWallet, setConnection, setBalance, setWalletVisibility } from "../redux/presaleReducer";
+import { getContractInstance, connectToWallet, injectProvider, toEther } from "../libraries/connectors";
+import { setWallet, setConnection, setBalance, setWalletVisibility, setIsAdmin } from "../redux/presaleReducer";
 import { setLoading, setToast } from "../redux/statusReducer";
 import { IStore } from "../redux/store";
 import Toaster from "../components/Toaster";
@@ -24,7 +24,6 @@ export default function Header() {
     // error,
     // setError,
   } = useWeb3React();
-
   const toggleBalanceVisibility = () => {
     dispatch(setWalletVisibility(!presale.walletIsVisible));
   };
@@ -41,6 +40,16 @@ export default function Header() {
       });
     } else {
       dispatch(setBalance(0));
+    }
+
+    if (active) {
+      (async () => {
+        const contract = await getContractInstance(library, chainId, account);
+        const owner = await contract.getOwner();
+        dispatch(setIsAdmin(owner === account));
+      })();
+    } else {
+      dispatch(setIsAdmin(false));
     }
   }, [active, account, library]);
 
@@ -104,10 +113,9 @@ export default function Header() {
               Disconnect Wallet
             </Button>
           )}
-          <Button onClick={() => getContract(library, account)}>Test</Button>
         </div>
+        <Toaster />
       </Stack>
-      <Toaster />
     </header>
   );
 }

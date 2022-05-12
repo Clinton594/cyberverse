@@ -18,7 +18,10 @@ const statusSlice = createSlice({
       state.loading = payload;
     },
     setToast: (state: Itoast, { payload }) => {
-      state = { ...state, ...payload };
+      state.title = payload.title;
+      state.message = payload.message;
+      state.status = payload.status;
+      state.show = payload.show;
     },
   },
 });
