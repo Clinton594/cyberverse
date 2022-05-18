@@ -24,9 +24,11 @@ contract Presale is Ownable {
     uint256 totalReceived; // Total Eth/ETH Received
 
     bool isPaused;
+    uint256 endate = 7 days;
     uint256 minPurchase = (10**9); //0.5 Eth/ETH
     uint256 purchaseCap = (100 * 10**18); // 100 ETH/Eth
 
+    uint256 totalContributors = 0;
     mapping(address => uint256) contributors;
 
     constructor(
@@ -53,6 +55,22 @@ contract Presale is Ownable {
 
     function getOwner() external view returns (address) {
         return owner();
+    }
+
+    function getTotalReceived() external view returns (uint256) {
+        return totalReceived;
+    }
+
+    function getTotalContributors() external view returns (uint256) {
+        return totalContributors;
+    }
+
+    function getEndate() external view returns (uint256) {
+        return endate;
+    }
+
+    function setEndate(uint256 _enddate) external onlyOwner notZero(_enddate) {
+        endate = _enddate;
     }
 
     // Set token rate
@@ -128,6 +146,7 @@ contract Presale is Ownable {
 
         totalReceived = totalReceived.add(msg.value);
         contributors[msg.sender] = contributors[msg.sender].add(msg.value);
+        totalContributors.add(1);
     }
 
     function getTokensPerEth(uint256 weiVal) public view returns (uint256) {

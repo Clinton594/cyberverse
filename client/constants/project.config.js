@@ -8,6 +8,10 @@ const projectConfig = {
   token: "PrimDexSwap",
   ticker: "PrimeDEX",
   blockChainTokan: "ETH",
+  status: {
+    true: "ON",
+    false: "OFF",
+  },
 };
 
 export default projectConfig;

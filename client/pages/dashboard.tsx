@@ -11,34 +11,57 @@ import Pane1 from "../components/Pane1";
 import Pane2 from "../components/Pane2";
 import Footer from "../components/Footer";
 import style from "../styles/Dashboard.module.css";
-import { getContractInstance } from "../libraries/connectors";
+import {
+  getContractInstance,
+  getEndDate,
+  getRate,
+  getPresaleStatus,
+  getTokenSold,
+  getTotalContributors,
+} from "../libraries/connectors";
+import { Icard, setAll } from "../redux/contractReducer";
+import projectConfig from "../constants/project.config";
 
 export default function Dashboard({ cardlist, transactions }) {
   const dispatch = useDispatch();
   const { account, chainId, library, active } = useWeb3React();
-  const { presale } = useSelector((store: IStore) => store);
+  const { presale, contract } = useSelector((store: IStore) => store);
 
-  let contract: any;
+  cardlist = cardlist.map((x: Icard) => {
+    x.value = typeof contract[x.key] === "boolean" ? projectConfig.status[contract[x.key]] : contract[x.key];
+    return x;
+  });
+
+  let contractInstance: any;
 
   Array.prototype.chunk = function (n: number): number[] {
     if (!this.length) return [];
     return [this.slice(0, n)].concat(this.slice(n).chunk(n));
   };
 
-  const chunked = cardlist.chunk(2);
-
   useEffect(() => {
     (async () => {
       if (active) {
-        contract = await getContractInstance(library, chainId, account);
-        const owner = await contract.getOwner();
+        contractInstance = await getContractInstance(library, chainId, account);
+        const owner = await contractInstance.getOwner();
         if (owner !== account) {
           dispatch(setIsAdmin(false));
+        } else {
+          // REad from the smart Contract
+          const card = {
+            tokenSold: await getTokenSold(contractInstance),
+            totalContributors: await getTotalContributors(contractInstance),
+            enddate: await getEndDate(contractInstance),
+            status: await getPresaleStatus(contractInstance),
+            rate: await getRate(contractInstance),
+          };
+          dispatch(setAll(card));
         }
       } else dispatch(setIsAdmin(false));
     })();
   }, [active]);
 
+  const chunked = cardlist.chunk(2);
   return (
     <main className={style.main}>
       <Container>
@@ -77,10 +100,10 @@ export const getServerSideProps = () => {
   return {
     props: {
       cardlist: [
-        { name: "Token Sold", key: "tokenSold", icon: "fab fa-bitcoin", value: "4,5000", variant: "primary" },
-        { name: "Total Contributors", key: "contributors", icon: "far fa-user", value: "1,600", variant: "success" },
-        { name: "Uptime", key: "uptime", icon: "fas fa-clock", value: "13 Days", variant: "info" },
-        { name: "Presale Status", key: "status", icon: "fas fa-info", value: "Paused", variant: "danger" },
+        { name: "Token Sold", key: "tokenSold", icon: "fab fa-bitcoin", value: 0, variant: "primary" },
+        { name: "Total Contributors", key: "totalContributors", icon: "far fa-user", value: 0, variant: "success" },
+        { name: "Uptime", key: "enddate", icon: "fas fa-clock", value: "", variant: "info" },
+        { name: "Presale Status", key: "status", icon: "fas fa-info", value: "false", variant: "danger" },
       ],
       transactions: [
         {
