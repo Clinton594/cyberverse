@@ -2,12 +2,8 @@ import { configureStore, Reducer, Slice } from "@reduxjs/toolkit";
 import presale from "./presaleReducer";
 import status from "./statusReducer";
 import contract from "./contractReducer";
+import { IStore } from "../types";
 
-interface IStore {
-  presale: any;
-  status: any;
-  contract: any;
-}
 const reducer: IStore = {
   presale,
   status,
@@ -16,5 +12,4 @@ const reducer: IStore = {
 
 const store = configureStore({ reducer });
 
-export type { IStore };
 export default store;

@@ -23,8 +23,8 @@ contract Presale is Ownable {
 
     uint256 totalReceived; // Total Eth/ETH Received
 
-    bool isPaused;
-    uint256 endate = 7 days;
+    bool allowed;
+    uint256 endate = block.timestamp + 7 days;
     uint256 minPurchase = (10**9); //0.5 Eth/ETH
     uint256 purchaseCap = (100 * 10**18); // 100 ETH/Eth
 
@@ -45,7 +45,7 @@ contract Presale is Ownable {
         rate = _rate;
         wallet = _wallet;
         Token = _token;
-        isPaused = true;
+        allowed = true;
     }
 
     modifier notZero(uint256 _value) {
@@ -85,13 +85,13 @@ contract Presale is Ownable {
 
     // Get the status of the Presale
     function getStatus() external view returns (bool) {
-        return isPaused;
+        return allowed;
     }
 
     // Pause or Open Presale
     function togglePause() external onlyOwner returns (bool) {
-        isPaused = !isPaused;
-        return isPaused;
+        allowed = !allowed;
+        return allowed;
     }
 
     //Get balance of tokens remaing in this presale Contract
@@ -124,7 +124,7 @@ contract Presale is Ownable {
      */
     function buyToken() public payable {
         // Make sure presale is currently not paused
-        require(isPaused == true, "Presale: Presale is paused");
+        require(allowed == false, "Presale: Presale is paused");
         // Must send more that minEth
         require(msg.value >= minPurchase, "Presale: Buy quantity is low");
         // Sender doesn't exceed maxCap

@@ -1,12 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-
-interface Itoast {
-  title: string | unknown;
-  message: string | unknown;
-  status: boolean | unknown;
-  loading: boolean;
-  show: boolean;
-}
+import { Itoast } from "../types/";
 
 export const defaultStatus: Itoast = { title: "", message: "", status: false, loading: false, show: false };
 
@@ -26,6 +19,5 @@ const statusSlice = createSlice({
   },
 });
 
-export type { Itoast };
 export const { setLoading, setToast } = statusSlice.actions;
 export default statusSlice.reducer;

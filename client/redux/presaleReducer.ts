@@ -1,14 +1,5 @@
 import { createSlice, Slice } from "@reduxjs/toolkit";
-
-interface IinitialState {
-  wallet: string;
-  loading: boolean;
-  balance: number;
-  isConnected: boolean;
-  walletIsVisible: boolean;
-  chainId: number;
-  isAdmin: boolean;
-}
+import { IinitialState } from "../types";
 
 const initialState: IinitialState = {
   loading: false,
@@ -45,7 +36,6 @@ const presaleSlice: Slice = createSlice({
   },
 });
 
-export type { IinitialState };
 export const { setWallet, setConnection, setBalance, setChainId, setWalletVisibility, setIsAdmin } =
   presaleSlice.actions;
 export default presaleSlice.reducer;

@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useWeb3React } from "@web3-react/core";
 import { Container, Tabs, Tab, Stack } from "react-bootstrap";
 
-import { IStore } from "../redux/store";
+import { IStore, Icard } from "../types";
 import { setIsAdmin } from "../redux/presaleReducer";
 import Header from "../components/Header";
 import Section from "../components/Section";
@@ -19,7 +19,7 @@ import {
   getTokenSold,
   getTotalContributors,
 } from "../libraries/connectors";
-import { Icard, setAll } from "../redux/contractReducer";
+import { setAll } from "../redux/contractReducer";
 import projectConfig from "../constants/project.config";
 
 export default function Dashboard({ cardlist, transactions }) {

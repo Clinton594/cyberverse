@@ -7,7 +7,7 @@ import projectConfig from "../constants/project.config";
 import { getContractInstance, connectToWallet, injectProvider, toEther } from "../libraries/connectors";
 import { setWallet, setConnection, setBalance, setWalletVisibility, setIsAdmin } from "../redux/presaleReducer";
 import { setLoading, setToast } from "../redux/statusReducer";
-import { IStore } from "../redux/store";
+import { IStore } from "../types/";
 import Toaster from "../components/Toaster";
 
 export default function Header() {

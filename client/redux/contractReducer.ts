@@ -1,22 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-
-interface IContract {
-  status: boolean;
-  rate: number;
-  totalContributors: number;
-  tokenSold: number;
-  contractBalance: number;
-  enddate: string;
-  contributorsList: object[];
-}
-
-interface Icard {
-  value: number | string;
-  name: string;
-  key: string;
-  icon: string;
-  variant: string;
-}
+import { IContract } from "../types";
 
 const initialState: IContract = {
   status: false,
@@ -61,7 +44,6 @@ const contractReducer = createSlice({
   },
 });
 
-export type { IContract, Icard };
 export const { setStatus, setRate, setContractBalance, setEnddate, setContributors, setAll, setTokenSold } =
   contractReducer.actions;
 export default contractReducer.reducer;
