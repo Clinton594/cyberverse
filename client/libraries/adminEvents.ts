@@ -10,13 +10,16 @@ import {
   getEndDate,
 } from "./connectors";
 import projectConfig from "../constants/project.config";
+import { Itoast } from "../types";
 
 export const defaultState = { status: false, rate: false, withdraw: false, enddate: false };
 
-const errocode = {
+const errocode: Itoast = {
   loading: false,
   show: true,
   status: false,
+  message: "",
+  title: "",
 };
 
 export const toggleStatus = async (web3: any, callback: Function) => {
@@ -29,10 +32,9 @@ export const toggleStatus = async (web3: any, callback: Function) => {
       callback({
         status,
         toast: {
-          message: `Successfuly turned ${projectConfig.status[!status]}`,
-          loading: false,
+          ...errocode,
+          message: `Successfuly turned ${projectConfig.status[status]}`,
           title: "Presale Status",
-          show: true,
           status,
         },
       });
@@ -58,10 +60,9 @@ export const submitTokenRate = async (web3: any, rate: string, callback: Functio
         status: true,
         data,
         toast: {
+          ...errocode,
           message: `Presale rate updated`,
-          loading: false,
           title: "Presale Rate",
-          show: true,
           status: true,
         },
       });
@@ -88,10 +89,9 @@ export const submitEndDate = async (web3: any, date: string, callback: Function)
         status: true,
         data,
         toast: {
-          message: `Presale rate updated`,
-          loading: false,
-          title: "Presale Rate",
-          show: true,
+          ...errocode,
+          message: `Presale end date updated`,
+          title: "Presale End Date",
           status: true,
         },
       });

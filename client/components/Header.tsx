@@ -1,17 +1,28 @@
 import Link from "next/link";
 import { useWeb3React } from "@web3-react/core";
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { Stack, Image, Button } from "react-bootstrap";
 import { useSelector, useDispatch } from "react-redux";
 import projectConfig from "../constants/project.config";
-import { getContractInstance, connectToWallet, injectProvider, toEther } from "../libraries/connectors";
+import {
+  getContractInstance,
+  getEndDate,
+  getRate,
+  getPresaleStatus,
+  getTokenSold,
+  getTotalContributors,
+  connectToWallet,
+  injectProvider,
+  toEther,
+} from "../libraries/connectors";
 import { setWallet, setConnection, setBalance, setWalletVisibility, setIsAdmin } from "../redux/presaleReducer";
-import { setLoading, setToast } from "../redux/statusReducer";
+import { setToast } from "../redux/statusReducer";
 import { IStore } from "../types/";
 import Toaster from "../components/Toaster";
+import { setAll } from "../redux/contractReducer";
 
 export default function Header() {
-  const { presale } = useSelector((store: IStore) => store);
+  const { presale, contract } = useSelector((store: IStore) => store);
   const dispatch = useDispatch();
   const {
     account, //The wallet address provided by your connector
@@ -24,6 +35,7 @@ export default function Header() {
     // error,
     // setError,
   } = useWeb3React();
+
   const toggleBalanceVisibility = () => {
     dispatch(setWalletVisibility(!presale.walletIsVisible));
   };
@@ -60,6 +72,27 @@ export default function Header() {
       if (persist) connectToWallet(activate, injectProvider, connector, (response) => {});
     }
   }, []);
+
+  // Update the redux state
+  useEffect(() => {
+    (async () => {
+      if (!active) dispatch(setIsAdmin(false));
+
+      let contractInstance = await getContractInstance(library, chainId, account);
+      const owner = await contractInstance.getOwner();
+      const card = {
+        tokenSold: await getTokenSold(contractInstance),
+        totalContributors: await getTotalContributors(contractInstance),
+        enddate: await getEndDate(contractInstance),
+        status: await getPresaleStatus(contractInstance),
+        rate: await getRate(contractInstance),
+      };
+
+      dispatch(setAll(card));
+      dispatch(setIsAdmin(account === owner));
+    })();
+  }, [active]);
+  console.log(contract);
 
   return (
     <header className="mt-3">

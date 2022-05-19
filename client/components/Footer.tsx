@@ -3,7 +3,7 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import style from "../styles/Home.module.css";
 import { useSelector } from "react-redux";
-import { IStore } from "../redux/store";
+import { IStore } from "../types";
 
 export default function Footer() {
   const { presale } = useSelector((store: IStore) => store);

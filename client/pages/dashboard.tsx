@@ -1,65 +1,28 @@
-import React, { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { useWeb3React } from "@web3-react/core";
+import React from "react";
+import { useSelector } from "react-redux";
 import { Container, Tabs, Tab, Stack } from "react-bootstrap";
 
 import { IStore, Icard } from "../types";
-import { setIsAdmin } from "../redux/presaleReducer";
 import Header from "../components/Header";
 import Section from "../components/Section";
 import Pane1 from "../components/Pane1";
 import Pane2 from "../components/Pane2";
 import Footer from "../components/Footer";
 import style from "../styles/Dashboard.module.css";
-import {
-  getContractInstance,
-  getEndDate,
-  getRate,
-  getPresaleStatus,
-  getTokenSold,
-  getTotalContributors,
-} from "../libraries/connectors";
-import { setAll } from "../redux/contractReducer";
+
 import projectConfig from "../constants/project.config";
 
 export default function Dashboard({ cardlist, transactions }) {
-  const dispatch = useDispatch();
-  const { account, chainId, library, active } = useWeb3React();
   const { presale, contract } = useSelector((store: IStore) => store);
-
   cardlist = cardlist.map((x: Icard) => {
     x.value = typeof contract[x.key] === "boolean" ? projectConfig.status[contract[x.key]] : contract[x.key];
     return x;
   });
 
-  let contractInstance: any;
-
   Array.prototype.chunk = function (n: number): number[] {
     if (!this.length) return [];
     return [this.slice(0, n)].concat(this.slice(n).chunk(n));
   };
-
-  useEffect(() => {
-    (async () => {
-      if (active) {
-        contractInstance = await getContractInstance(library, chainId, account);
-        const owner = await contractInstance.getOwner();
-        if (owner !== account) {
-          dispatch(setIsAdmin(false));
-        } else {
-          // REad from the smart Contract
-          const card = {
-            tokenSold: await getTokenSold(contractInstance),
-            totalContributors: await getTotalContributors(contractInstance),
-            enddate: await getEndDate(contractInstance),
-            status: await getPresaleStatus(contractInstance),
-            rate: await getRate(contractInstance),
-          };
-          dispatch(setAll(card));
-        }
-      } else dispatch(setIsAdmin(false));
-    })();
-  }, [active]);
 
   const chunked = cardlist.chunk(2);
   return (

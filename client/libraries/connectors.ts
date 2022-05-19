@@ -1,16 +1,24 @@
 import { InjectedConnector } from "@web3-react/injected-connector";
-import { ethers, BigNumber } from "ethers";
+import { ethers } from "ethers";
 import presale from "../contracts/Presale.json";
 import networks from "../constants/networks.json";
 import projectConfig from "../constants/project.config";
 
 export const getContractInstance = async (provider: any, chainId: number, account: string | undefined) => {
-  const contractAddress = networks[chainId].address;
+  // If connected to a wallet
+  let signer: any;
   if (typeof account === "string") {
-    const signer = provider.getSigner(account);
-    return new ethers.Contract(contractAddress, presale.abi, signer);
+    const contractAddress = networks[chainId].address;
+    signer = provider.getSigner(account);
+  } else {
+    // Not connected to any wallet
+    chainId = 4;
+    if (process.env.NODE_ENV === "development") {
+      chainId = 1337;
+      signer = new ethers.providers.JsonRpcProvider(networks[chainId].url);
+    } else signer = ethers.getDefaultProvider({ name: "rinkeby", chainId: networks[chainId].chainId });
   }
-  return new ethers.Contract(contractAddress, presale.abi, provider);
+  return new ethers.Contract(networks[chainId].address, presale.abi, signer);
 };
 
 export const connectToWallet = async (activate: Function, provider: any, connector: any, callback: Function) => {
@@ -82,8 +90,6 @@ export const setEnddate = async (contract: any, account: string, timestamp: numb
 
 export const getEndDate = async (contract: any) => {
   const enddate = await contract.getEndate();
-  console.log(enddate.toString());
-
   const date = new Date(enddate.toString() * 1000);
-  return date.toLocaleString();
+  return date.toISOString().substr(0, 10);
 };

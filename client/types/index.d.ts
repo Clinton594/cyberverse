@@ -18,10 +18,11 @@ interface Itoast {
 
 interface Iresponse {
   status: boolean;
-  data: any;
+  data: any | undefined;
   toast: Itoast;
 }
 
+// Initial state for Presale
 interface IinitialState {
   wallet: string;
   loading: boolean;
@@ -32,6 +33,7 @@ interface IinitialState {
   isAdmin: boolean;
 }
 
+// Admin contract
 interface IContract {
   status: boolean;
   rate: number;

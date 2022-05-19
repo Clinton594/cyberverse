@@ -3,8 +3,8 @@ body {
   margin: 0;
   padding: 0;
   background-size: cover;
-  background-image: url('/993956.jpg');
-  font-family: 'Montserrat', sans-serif;
+  background-image: url("/993956.jpg");
+  font-family: "Montserrat", sans-serif;
   color: white;
 }
 .verital_center {
@@ -44,22 +44,26 @@ td {
   font-size: small;
 }
 
-th{
+th {
   font-size: large;
   font-weight: bold;
 }
-tr{
+tr {
   border: unset;
 }
 
-section{
+section {
   border-radius: 5px;
 }
 
-fieldset{
+fieldset {
   min-height: 150px;
 }
-
-[role="tabpanel"] .card{
+.toast {
+  top: 20px;
+  position: fixed !important;
+  z-index: 1000;
+}
+[role="tabpanel"] .card {
   margin-bottom: 30px;
 }

@@ -9,9 +9,9 @@ import Header from "../components/Header";
 import styles from "../styles/Home.module.css";
 import Footer from "../components/Footer";
 import { useSelector } from "react-redux";
-import { IStore } from "../redux/store";
+import { IStore } from "../types";
 
-export default function Home({ balance }) {
+export default function Home() {
   const { presale } = useSelector((store: IStore) => store);
 
   const particlesInit = async (main: any) => {
@@ -105,11 +105,3 @@ export default function Home({ balance }) {
     </main>
   );
 }
-
-export const getStaticProps = async () => {
-  return {
-    props: {
-      balance: "",
-    },
-  };
-};

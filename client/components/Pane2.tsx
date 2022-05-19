@@ -4,10 +4,10 @@ import Section from "./Section";
 import { useWeb3React } from "@web3-react/core";
 import { useDispatch, useSelector } from "react-redux";
 import { Form, Button, Row, Col, Card, Stack, Spinner } from "react-bootstrap";
-import { IStore } from "../types";
+import { Iresponse, IStore } from "../types";
 import projectConfig from "../constants/project.config";
 import { toggleStatus, defaultState, submitTokenRate, submitEndDate } from "../libraries/adminEvents";
-import { setRate, setStatus } from "../redux/contractReducer";
+import { setEnddate, setRate, setStatus } from "../redux/contractReducer";
 import { setToast } from "../redux/statusReducer";
 
 export default function Pane2({ style }) {
@@ -19,10 +19,10 @@ export default function Pane2({ style }) {
 
   const triggerToggleStatus = () => {
     toggleLoading({ ...loading, status: true }); //start loading circle
-    toggleStatus(web3, ({ status, data }) => {
-      status && dispatch(setStatus(status)); // update the reducer
+    toggleStatus(web3, ({ status, toast }: Iresponse) => {
+      dispatch(setStatus(status)); // update the reducer
       toggleLoading({ ...loading, status: false }); // stop the loading circle
-      dispatch(setToast(data)); //toast the response
+      dispatch(setToast(toast)); //toast the response
     });
   };
 
@@ -31,13 +31,13 @@ export default function Pane2({ style }) {
     const val = e.target[0].value;
 
     toggleLoading({ ...loading, rate: true }); //start loading circle
-    submitTokenRate(web3, val, (response) => {
-      if (response.status) {
-        dispatch(setRate(response.data));
+    submitTokenRate(web3, val, ({ status, toast, data }: Iresponse) => {
+      if (status) {
+        dispatch(setRate(data));
         e.target[0].value = "";
       }
       toggleLoading({ ...loading, rate: false }); // stop the loading circle
-      dispatch(setToast(response.data)); //toast the response
+      dispatch(setToast(toast)); //toast the response
     });
   };
 
@@ -45,14 +45,14 @@ export default function Pane2({ style }) {
     e.preventDefault();
     const val = e.target[0].value;
 
-    // toggleLoading({ ...loading, enddate: true }); //start loading circle
-    submitEndDate(web3, val, (response) => {
-      // if (response.status) {
-      //   dispatch(setRate(response.rate));
-      //   e.target[0].value = "";
-      // }
-      // toggleLoading({ ...loading, rate: false }); // stop the loading circle
-      // dispatch(setToast(response.data)); //toast the response
+    toggleLoading({ ...loading, enddate: true }); //start loading circle
+    submitEndDate(web3, val, ({ status, toast, data }: Iresponse) => {
+      if (status) {
+        dispatch(setEnddate(data));
+        e.target[0].value = "";
+      }
+      toggleLoading({ ...loading, enddate: false }); // stop the loading circle
+      dispatch(setToast(toast)); //toast the response
     });
   };
 
@@ -122,7 +122,7 @@ export default function Pane2({ style }) {
                       <small className="text-muted">Enter the withdrawal wallet</small>
                     </Form.Label>
                     <Stack direction="horizontal" gap={3}>
-                      <Form.Control type="text" required />
+                      <Form.Control type="text" disabled={loading.withdraw} required />
                       <Button disabled={loading.withdraw} variant="danger" type="submit">
                         <Stack direction="horizontal" gap={2}>
                           Withdraw {loading.withdraw && <Spinner animation="border" size="sm" variant="warning" />}
@@ -143,7 +143,7 @@ export default function Pane2({ style }) {
                       <small className="text-muted">Change presale end date</small>
                     </Form.Label>
                     <Stack direction="horizontal" gap={3}>
-                      <Form.Control type="date" required />
+                      <Form.Control defaultValue={contract.enddate} type="date" disabled={loading.enddate} required />
                       <Button disabled={loading.enddate} variant="info" type="submit">
                         <Stack direction="horizontal" gap={2}>
                           Modify {loading.enddate && <Spinner animation="border" size="sm" variant="warning" />}

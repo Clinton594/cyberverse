@@ -1,14 +1,19 @@
 {
   "1337":{
     "name":"Development",
+    "url":"http://127.0.0.1:9545/",
     "address":"0xFc0A2E0edAd575F8a01f46ACfC9d063E1C3d4CCb"
   },
   "1":{
     "name":"Mainnet",
+    "url":"INFURA_LINK",
+    "chainId":1,
     "address":""
   },
   "4":{
     "name":"Rinkeby Testnet",
+    "url":"INFURA_LINK",
+    "chainId":4,
     "address":"0xFc0A2E0edAd575F8a01f46ACfC9d063E1C3d4CCb"
   }
 }
