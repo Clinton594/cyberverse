@@ -2,7 +2,7 @@ const TestToken = artifacts.require("TestToken");
 const Presale = artifacts.require("Presale");
 
 module.exports = async (deployer, network, accounts) => {
-  await deployer.deploy(TestToken, "TestToken", "TTK", 1000000);
+  await deployer.deploy(TestToken, "PrimDexSwap", "PrimDex", "1000000000000");
   const token = await TestToken.deployed();
 
   // Deploy presale

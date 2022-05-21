@@ -7,7 +7,7 @@ const initialState: IContract = {
   totalContributors: 0,
   tokenSold: 0,
   contractBalance: 0,
-  enddate: "N/A",
+  enddate: "2022-02-12",
   contributorsList: [],
 };
 

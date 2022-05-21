@@ -1,11 +1,10 @@
-
 .main {
   min-height: 100vh;
   position: relative;
   float: left;
   width: 100%;
 }
-.main::before{
+.main::before {
   position: absolute;
   content: "";
   top: 0;
@@ -69,8 +68,8 @@
   border-radius: 5px;
   padding: 0.75rem;
   font-size: 1.1rem;
-  font-family: Menlo, Monaco, Lucida Console, Liberation Mono, DejaVu Sans Mono,
-    Bitstream Vera Sans Mono, Courier New, monospace;
+  font-family: Menlo, Monaco, Lucida Console, Liberation Mono, DejaVu Sans Mono, Bitstream Vera Sans Mono, Courier New,
+    monospace;
 }
 
 .grid {
@@ -111,14 +110,13 @@
   line-height: 1.5;
 }
 
-
 section.banner {
   display: flex;
   flex-direction: row;
   min-height: 80vh;
   align-items: center;
 }
-.distri{
+.distri {
   background: #fff;
   padding: 10px 20px;
   border-radius: 4px;
@@ -138,7 +136,7 @@ section.banner {
   display: -ms-flexbox;
   display: flex;
   overflow: hidden;
-  font-size: .75rem;
+  font-size: 0.75rem;
   background-color: #e9ecef;
   border-radius: 0.25rem;
 }
@@ -157,7 +155,7 @@ section.banner {
   color: #fff;
   text-align: center;
   background-color: #0b0c22;
-  transition: width .6s ease;
+  transition: width 0.6s ease;
 }
 .banner .progress span {
   font-weight: bold;
@@ -183,15 +181,54 @@ section.banner {
 .distri .countdown li p {
   color: #333;
   font-size: 12px;
-    font-weight: 500;
-    text-transform: capitalize;
-    margin: 0px;
+  font-weight: 500;
+  text-transform: capitalize;
+  margin: 0px;
 }
-
+.swap {
+  color: white;
+  background-color: transparent;
+}
+.swaphead {
+  background-color: rgb(63 27 112);
+  padding: 30px 30px 15px;
+  border-top-left-radius: 30px;
+  border-top-right-radius: 30px;
+  border-bottom: 1px solid rgb(233 226 243);
+  text-align: center;
+}
+.swapbody input {
+  color: rgb(244, 238, 255) !important;
+  position: relative;
+  font-weight: 500;
+  outline: none !important;
+  border: none !important;
+  flex: 1 1 auto;
+  background-color: #544f4f8a !important;
+  font-size: 16px;
+  text-align: right;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  -webkit-appearance: textfield;
+  -moz-appearance: textfield;
+  appearance: textfield;
+  height: 50px;
+}
+.swapbody {
+  background-color: rgb(26 20 34);
+  padding: 30px;
+  border-bottom: 1px solid rgb(233 226 243);
+}
+.swapfoot {
+  background-color: rgb(26 20 34);
+  padding: 30px;
+  border-bottom-left-radius: 30px;
+  border-bottom-right-radius: 30px;
+}
 @media (max-width: 600px) {
   .grid {
     width: 100%;
     flex-direction: column;
   }
 }
-

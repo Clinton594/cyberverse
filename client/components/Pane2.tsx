@@ -9,6 +9,7 @@ import projectConfig from "../constants/project.config";
 import { toggleStatus, defaultState, submitTokenRate, submitEndDate } from "../libraries/adminEvents";
 import { setEnddate, setRate, setStatus } from "../redux/contractReducer";
 import { setToast } from "../redux/statusReducer";
+import { num_format } from "../libraries/utils";
 
 export default function Pane2({ style }) {
   const [loading, toggleLoading] = useState(defaultState);
@@ -84,11 +85,7 @@ export default function Pane2({ style }) {
           </Col>
           <Col md="6">
             <Card>
-              <Fieldset
-                title="Rate"
-                value={new Intl.NumberFormat("en-IN").format(contract.rate)}
-                isLoading={loading.rate}
-              >
+              <Fieldset title="Rate" value={num_format(contract.rate)} isLoading={loading.rate}>
                 <Form onSubmit={triggerSetRate}>
                   <Form.Group className="mb-3">
                     <Form.Label>

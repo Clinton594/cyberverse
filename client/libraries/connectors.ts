@@ -93,3 +93,9 @@ export const getEndDate = async (contract: any) => {
   const date = new Date(enddate.toString() * 1000);
   return date.toISOString().substr(0, 10);
 };
+
+export const getTokenQty = async (provider: any, chainId: number, account: string | undefined, eth: string) => {
+  const contractInstance = await getContractInstance(provider, chainId, account);
+  const wei = BigInt(parseFloat(eth) * 10 ** projectConfig.decimal);
+  return await contractInstance.getTokensPerEth(wei);
+};

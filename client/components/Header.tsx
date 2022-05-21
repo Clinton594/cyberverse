@@ -92,7 +92,6 @@ export default function Header() {
       dispatch(setIsAdmin(account === owner));
     })();
   }, [active]);
-  console.log(contract);
 
   return (
     <header className="mt-3">
